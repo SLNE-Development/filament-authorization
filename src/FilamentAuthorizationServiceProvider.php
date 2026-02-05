@@ -33,7 +33,7 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('slne-development/filament-authorization');
             });
 
-        $package->hasConfigFile("permission.php");
+        $package->hasConfigFile("permission");
 
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
