@@ -11,48 +11,10 @@ use UnitEnum;
 
 class FilamentAuthorizationPlugin implements Plugin
 {
-    public ?string $authHome = "" {
-        get {
-            return $this->authHome;
-        }
-        set(string|null $value) {
-            $this->authHome = $value;
-        }
-    }
-
-    public string|UnitEnum|null $navigationGroup = null {
-        get {
-            return $this->navigationGroup;
-        }
-        set(string|UnitEnum|null $value) {
-            $this->navigationGroup = $value;
-        }
-    }
-
-    public ?int $navigationSortIndex = null {
-        get {
-            return $this->navigationSortIndex;
-        }
-        set(int|null $value) {
-            $this->navigationSortIndex = $value;
-        }
-    }
-
-    /**
-     * @var class-string<Model>|null
-     */
-    public ?string $userModel = null {
-        get {
-            return $this->userModel;
-        }
-        set(string|null $value) {
-            if ($value !== null && !is_subclass_of($value, Model::class)) {
-                throw new \InvalidArgumentException("The user model must be a subclass of Illuminate\\Database\\Eloquent\\Model");
-            }
-
-            $this->userModel = $value;
-        }
-    }
+    private ?string $authHome = "";
+    private string|UnitEnum|null $navigationGroup = null;
+    private ?int $navigationSortIndex = null;
+    private ?string $userModel = null;
 
     public function getId(): string
     {
@@ -90,5 +52,58 @@ class FilamentAuthorizationPlugin implements Plugin
     public static function get(): static
     {
         return filament(app(static::class)->getId());
+    }
+
+
+    public function withUserModel(string $userModel): static
+    {
+        if (!is_subclass_of($userModel, Model::class)) {
+            throw new \InvalidArgumentException("The user model must be a subclass of Illuminate\\Database\\Eloquent\\Model");
+        }
+
+        $this->userModel = $userModel;
+
+        return $this;
+    }
+
+    public function withAuthHome(string $authHome): static
+    {
+        $this->authHome = $authHome;
+
+        return $this;
+    }
+
+    public function withNavigationGroup(string|UnitEnum $navigationGroup): static
+    {
+        $this->navigationGroup = $navigationGroup;
+
+        return $this;
+    }
+
+    public function withNavigationSortIndex(int $navigationSortIndex): static
+    {
+        $this->navigationSortIndex = $navigationSortIndex;
+
+        return $this;
+    }
+
+    public function getNavigationGroup(): string|UnitEnum|null
+    {
+        return $this->navigationGroup;
+    }
+
+    public function getNavigationSort(): ?int
+    {
+        return $this->navigationSortIndex;
+    }
+
+    public function getUserModel(): ?string
+    {
+        return $this->userModel;
+    }
+
+    public function getAuthHome(): ?string
+    {
+        return $this->authHome;
     }
 }

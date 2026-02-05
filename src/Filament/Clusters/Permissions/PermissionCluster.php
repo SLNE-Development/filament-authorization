@@ -10,11 +10,11 @@ class PermissionCluster extends Cluster
 {
     public static function getNavigationSort(): ?int
     {
-        return FilamentAuthorizationPlugin::get()->navigationSortIndex;
+        return FilamentAuthorizationPlugin::get()->getNavigationSort();
     }
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return FilamentAuthorizationPlugin::get()->navigationGroup;
+        return FilamentAuthorizationPlugin::get()->getNavigationGroup();
     }
 }

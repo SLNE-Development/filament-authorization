@@ -40,7 +40,7 @@ class PermissionResource extends Resource
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return FilamentAuthorizationPlugin::get()->navigationGroup;
+        return FilamentAuthorizationPlugin::get()->getNavigationGroup();
     }
 
     public static function form(Schema $schema): Schema

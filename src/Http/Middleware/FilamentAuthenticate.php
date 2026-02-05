@@ -35,6 +35,6 @@ class FilamentAuthenticate extends Middleware
 
     protected function redirectTo(Request $request): ?string
     {
-        return route(FilamentAuthorizationPlugin::get()->authHome);
+        return route(FilamentAuthorizationPlugin::get()->getAuthHome());
     }
 }

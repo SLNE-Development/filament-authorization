@@ -4,6 +4,7 @@ namespace SLNE\FilamentAuthorization\Http\Policies;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use LogicException;
 
 /**
  * @template T of Model
@@ -19,11 +20,11 @@ abstract class FilamentPolicy
     public function __construct()
     {
         if (!isset(static::$model)) {
-            throw new \LogicException("Please define static::\$model in " . static::class);
+            throw new LogicException("Please define static::\$model in " . static::class);
         }
 
         if (!isset(static::$permissionPrefix)) {
-            throw new \LogicException("Please define static::\$permissionPrefix in " . static::class);
+            throw new LogicException("Please define static::\$permissionPrefix in " . static::class);
         }
     }
 
@@ -46,11 +47,11 @@ abstract class FilamentPolicy
     private function checkAuthenticatable(Authenticatable $user): void
     {
         if (!method_exists($user, "getAllPermissions")) {
-            throw new \LogicException("User model must implement Spatie HasRoles trait");
+            throw new LogicException("User model must implement Spatie HasRoles trait");
         }
 
         if (!method_exists($user, "hasPermissionTo")) {
-            throw new \LogicException("User model must implement Spatie HasRoles trait");
+            throw new LogicException("User model must implement Spatie HasRoles trait");
         }
     }
 

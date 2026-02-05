@@ -40,7 +40,7 @@ class RoleResource extends Resource
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return FilamentAuthorizationPlugin::get()->navigationGroup;
+        return FilamentAuthorizationPlugin::get()->getNavigationGroup();
     }
 
     /**
