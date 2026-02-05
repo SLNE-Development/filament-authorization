@@ -1,7 +1,7 @@
 {
     "name": "slne-development/filament-authorization",
     "description": "Filament Authorization using policies and spatie-permissions",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "type": "library",
     "keywords": [
         "SLNE-Development",
@@ -36,11 +36,7 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
-        }
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
