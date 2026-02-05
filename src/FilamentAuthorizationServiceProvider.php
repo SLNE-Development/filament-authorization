@@ -96,7 +96,7 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
         foreach (glob(__DIR__ . "/Http/Policies/*.php") as $file) {
             $class = "SLNE\\FilamentAuthorization\\Http\\Policies\\" . basename($file, ".php");
 
-            if (class_exists($class) && $class != FilamentPolicy::class) {
+            if (class_exists($class) && $class != FilamentPolicy::class && is_subclass_of($class, FilamentPolicy::class)) {
                 $model = $class::getModel() ?? null;
 
                 if ($model) {
