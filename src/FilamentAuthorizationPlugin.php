@@ -3,6 +3,7 @@
 namespace SLNE\FilamentAuthorization;
 
 use Filament\Contracts\Plugin;
+use Filament\Pages\Enums\SubNavigationPosition;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -16,7 +17,8 @@ class FilamentAuthorizationPlugin implements Plugin
 
     private string|UnitEnum|null $navigationGroup = null;
     private ?int $navigationSortIndex = null;
-    private ?string $navigationLabel = "Authorization";
+    private string $navigationLabel = "Authorization";
+    private SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
 
     private ?string $userModel = null;
 
@@ -179,6 +181,17 @@ class FilamentAuthorizationPlugin implements Plugin
     public function withNavigationLabel(string $navigationLabel): static
     {
         $this->navigationLabel = $navigationLabel;
+        return $this;
+    }
+
+    public function getSubNavigationPosition(): SubNavigationPosition
+    {
+        return $this->subNavigationPosition;
+    }
+
+    public function withSubNavigationPosition(SubNavigationPosition $subNavigationPosition): static
+    {
+        $this->subNavigationPosition = $subNavigationPosition;
         return $this;
     }
 }

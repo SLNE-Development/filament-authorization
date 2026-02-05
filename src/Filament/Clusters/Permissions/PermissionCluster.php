@@ -3,11 +3,17 @@
 namespace SLNE\FilamentAuthorization\Filament\Clusters\Permissions;
 
 use Filament\Clusters\Cluster;
+use Filament\Pages\Enums\SubNavigationPosition;
 use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 use UnitEnum;
 
 class PermissionCluster extends Cluster
 {
+    public static function getSubNavigationPosition(): ?SubNavigationPosition
+    {
+        return FilamentAuthorizationPlugin::get()->getSubNavigationPosition();
+    }
+
     public static function getNavigationLabel(): string
     {
         return FilamentAuthorizationPlugin::get()->getNavigationLabel();
