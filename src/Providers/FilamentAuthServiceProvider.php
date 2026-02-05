@@ -3,6 +3,7 @@
 namespace SLNE\FilamentAuthorization\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -34,6 +35,8 @@ class FilamentAuthServiceProvider extends ServiceProvider
         $directoryIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(app_path("Policies")));
 
         foreach ($directoryIterator as $file) {
+            Log::info($file->getPathname());
+            
             if ($file->getExtension() !== "php") {
                 continue;
             }
