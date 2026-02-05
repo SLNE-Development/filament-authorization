@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use SLNE\FilamentAuthorization\Models\FilamentPermission;
+use SLNE\FilamentAuthorization\Models\FilamentRole;
 use SLNE\FilamentAuthorization\Policies\FilamentPolicy;
 use SLNE\FilamentAuthorization\Policies\PermissionPolicy;
 use SLNE\FilamentAuthorization\Policies\RolePolicy;
@@ -57,8 +59,8 @@ class FilamentAuthServiceProvider extends ServiceProvider
     public function registerExtraPolicies(): void
     {
         $policies = array_merge($this->extraPolicies(), [
-            RolePolicy::class,
-            PermissionPolicy::class
+            FilamentRole::class => RolePolicy::class,
+            FilamentPermission::class => PermissionPolicy::class
         ]);
 
         foreach ($policies as $model => $policy) {
