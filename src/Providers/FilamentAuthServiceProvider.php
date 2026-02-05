@@ -35,8 +35,6 @@ class FilamentAuthServiceProvider extends ServiceProvider
         $directoryIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(app_path("Policies")));
 
         foreach ($directoryIterator as $file) {
-            Log::info($file->getPathname());
-            
             if ($file->getExtension() !== "php") {
                 continue;
             }
@@ -44,13 +42,20 @@ class FilamentAuthServiceProvider extends ServiceProvider
             $relativeClass = str_replace([app_path() . DIRECTORY_SEPARATOR, '.php'], "", $file->getPathname());
             $class = str_replace(DIRECTORY_SEPARATOR, "\\", $relativeClass);
 
+            Log::info("#########");
+            Log::info("Checking class: " . $class);
+
             if (class_exists($class) && is_subclass_of($class, FilamentPolicy::class)) {
+                Log::info("Found policy: " . $class);
                 $model = $class::getModel() ?? null;
+                Log::info("Model: " . $model);
 
                 if ($model && class_exists($model)) {
+                    Log::info("Registering policy: " . $class);
                     Gate::policy($model, $class);
                 }
             }
+            Log::info("#########");
         }
     }
 
