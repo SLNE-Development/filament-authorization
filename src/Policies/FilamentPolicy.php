@@ -1,6 +1,6 @@
 <?php
 
-namespace SLNE\FilamentAuthorization\Http\Policies;
+namespace SLNE\FilamentAuthorization\Policies;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;

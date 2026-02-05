@@ -6,10 +6,8 @@ use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Gate;
 use SLNE\FilamentAuthorization\Commands\CreateDefaultPermissionsCommand;
 use SLNE\FilamentAuthorization\Commands\PolicyPermissionCommand;
-use SLNE\FilamentAuthorization\Http\Policies\FilamentPolicy;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -42,6 +40,12 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
                         $command->comment("Please make sure to remove the default Authorization middlewares from middleware and authMiddleware in your panel provider.");
                         if (!$command->confirm("Did you update your panel provider accordingly?", true)) {
                             $command->info("Aborting installation. Please update your panel provider and run the install command again.");
+                            exit;
+                        }
+
+                        $command->comment("Please make sure to remove App\Providers\AuthServiceProvider::class from your bootstrap/providers.php and replace it with the FilamentAuthServiceProvider.");
+                        if (!$command->confirm("Did you update your bootstrap accordingly?", true)) {
+                            $command->info("Aborting installation. Please update your bootstrap accordingly and run the install command again.");
                             exit;
                         }
                     })
@@ -89,19 +93,6 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
                 $this->publishes([
                     $file->getRealPath() => base_path("stubs/filament-authorization/{$file->getFilename()}"),
                 ], 'filament-authorization-stubs');
-            }
-        }
-
-        // Handle policies
-        foreach (glob(__DIR__ . "/Http/Policies/*.php") as $file) {
-            $class = "SLNE\\FilamentAuthorization\\Http\\Policies\\" . basename($file, ".php");
-
-            if (class_exists($class) && $class != FilamentPolicy::class && is_subclass_of($class, FilamentPolicy::class)) {
-                $model = $class::getModel() ?? null;
-
-                if ($model) {
-                    Gate::policy($model, $class);
-                }
             }
         }
     }

@@ -4,7 +4,7 @@ namespace SLNE\FilamentAuthorization\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Gate;
-use SLNE\FilamentAuthorization\Http\Policies\FilamentPolicy;
+use SLNE\FilamentAuthorization\Policies\FilamentPolicy;
 use Spatie\Permission\Models\Permission;
 
 class PolicyPermissionCommand extends Command

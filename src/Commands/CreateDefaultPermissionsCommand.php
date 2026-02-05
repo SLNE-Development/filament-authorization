@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use JetBrains\PhpStorm\NoReturn;
-use SLNE\FilamentAuthorization\Http\Policies\FilamentPolicy;
+use SLNE\FilamentAuthorization\Policies\FilamentPolicy;
 use Spatie\Permission\Models\Permission;
 
 class CreateDefaultPermissionsCommand extends Command
