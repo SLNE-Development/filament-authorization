@@ -6,6 +6,7 @@ use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 
 class FilamentAuthenticate extends Middleware
 {
@@ -15,8 +16,6 @@ class FilamentAuthenticate extends Middleware
 
         if (!$guard->check()) {
             $this->unauthenticated($request, $guards);
-
-            return;
         }
 
         $this->auth->shouldUse(Filament::getAuthGuard());
@@ -36,6 +35,6 @@ class FilamentAuthenticate extends Middleware
 
     protected function redirectTo(Request $request): ?string
     {
-        return route($FilamentAuthorizationPlugin::get()->authHome);
+        return route(FilamentAuthorizationPlugin::get()->authHome);
     }
 }
