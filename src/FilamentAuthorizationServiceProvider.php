@@ -6,8 +6,10 @@ use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Gate;
 use SLNE\FilamentAuthorization\Commands\CreateDefaultPermissionsCommand;
 use SLNE\FilamentAuthorization\Commands\PolicyPermissionCommand;
+use SLNE\FilamentAuthorization\Http\Policies\FilamentPolicy;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -87,6 +89,19 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
                 $this->publishes([
                     $file->getRealPath() => base_path("stubs/filament-authorization/{$file->getFilename()}"),
                 ], 'filament-authorization-stubs');
+            }
+        }
+
+        // Handle policies
+        foreach (glob(__DIR__ . "/Http/Policies/*.php") as $file) {
+            $class = "SLNE\\FilamentAuthorization\\Http\\Policies\\" . basename($file, ".php");
+
+            if (class_exists($class) && $class != FilamentPolicy::class) {
+                $model = $class::getModel() ?? null;
+
+                if ($model) {
+                    Gate::policy($model, $class);
+                }
             }
         }
     }

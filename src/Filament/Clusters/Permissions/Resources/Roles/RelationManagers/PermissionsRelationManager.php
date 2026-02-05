@@ -14,10 +14,14 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\Actions\ImportPermissionsAction;
+use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 
 class PermissionsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'permissions';
+    public static function getRelationshipName(): string
+    {
+        return FilamentAuthorizationPlugin::get()->getRolePermissionsRelation();
+    }
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {

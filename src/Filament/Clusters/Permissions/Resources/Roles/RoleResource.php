@@ -2,6 +2,7 @@
 
 namespace SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles;
 
+use Exception;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -20,8 +21,12 @@ use UnitEnum;
 
 class RoleResource extends Resource
 {
-    protected static ?string $model = Role::class;
     protected static ?string $cluster = PermissionCluster::class;
+
+    public static function getModel(): string
+    {
+        return config("permission.models.role", Role::class);
+    }
 
     public static function getLabel(): ?string
     {
@@ -35,7 +40,7 @@ class RoleResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return Role::query()->count();
+        return static::getModel()->query()->count();
     }
 
     public static function getNavigationGroup(): string|UnitEnum|null
@@ -44,7 +49,7 @@ class RoleResource extends Resource
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function form(Schema $schema): Schema
     {

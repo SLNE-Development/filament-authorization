@@ -16,6 +16,12 @@ class FilamentAuthorizationPlugin implements Plugin
     private ?int $navigationSortIndex = null;
     private ?string $userModel = null;
 
+    private string $permissionPermissionPrefix = "permission";
+    private string $rolePermissionPrefix = "role";
+
+    private string $permissionRolesRelation = "roles";
+    private string $rolePermissionsRelation = "permissions";
+
     public function getId(): string
     {
         return FilamentAuthorizationServiceProvider::$name;
@@ -105,5 +111,59 @@ class FilamentAuthorizationPlugin implements Plugin
     public function getAuthHome(): ?string
     {
         return $this->authHome;
+    }
+
+    public function getPermissionPermissionPrefix(): string
+    {
+        return $this->permissionPermissionPrefix;
+    }
+
+    public function getRolePermissionPrefix(): string
+    {
+        return $this->rolePermissionPrefix;
+    }
+
+    public function getPermissionRolesRelation(): string
+    {
+        return $this->permissionRolesRelation;
+    }
+
+    public function getRolePermissionsRelation(): string
+    {
+        return $this->rolePermissionsRelation;
+    }
+
+    public function withPermissionPermissionPrefix(string $permissionPermissionPrefix): static
+    {
+        $this->permissionPermissionPrefix = $permissionPermissionPrefix;
+        return $this;
+    }
+
+    public function withRolePermissionPrefix(string $rolePermissionPrefix): static
+    {
+        $this->rolePermissionPrefix = $rolePermissionPrefix;
+        return $this;
+    }
+
+    public function withPermissionRolesRelation(string $permissionRolesRelation): static
+    {
+        $this->permissionRolesRelation = $permissionRolesRelation;
+        return $this;
+    }
+
+    public function withRolePermissionsRelation(string $rolePermissionsRelation): static
+    {
+        $this->rolePermissionsRelation = $rolePermissionsRelation;
+        return $this;
+    }
+
+    public function getPermissionModel(): string
+    {
+        return config("filament-authorization.permission_model");
+    }
+
+    public function getRoleModel(): string
+    {
+        return config("filament-authorization.role_model");
     }
 }

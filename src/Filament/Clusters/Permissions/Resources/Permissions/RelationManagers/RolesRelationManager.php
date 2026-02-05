@@ -15,10 +15,14 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 
 class RolesRelationManager extends RelationManager
 {
-    protected static string $relationship = 'roles';
+    public static function getRelationshipName(): string
+    {
+        return FilamentAuthorizationPlugin::get()->getPermissionRolesRelation();
+    }
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {

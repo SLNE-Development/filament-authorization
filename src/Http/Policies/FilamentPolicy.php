@@ -17,30 +17,42 @@ abstract class FilamentPolicy
     protected static string $model;
     protected static string $permissionPrefix;
 
+    protected static function getPermissionPrefix(): string
+    {
+        return static::$permissionPrefix;
+    }
+
+    protected static function getModel(): string
+    {
+        return static::$model;
+    }
+
     public function __construct()
     {
-        if (!isset(static::$model)) {
+        if (!static::getModel()) {
             throw new LogicException("Please define static::\$model in " . static::class);
         }
 
-        if (!isset(static::$permissionPrefix)) {
+        if (!static::getPermissionPrefix()) {
             throw new LogicException("Please define static::\$permissionPrefix in " . static::class);
         }
     }
 
     public function getAllPermissions(): array
     {
+        $prefix = static::$permissionPrefix . '.';
+
         return [
-            static::$permissionPrefix . '.viewAny',
-            static::$permissionPrefix . '.view',
-            static::$permissionPrefix . '.create',
-            static::$permissionPrefix . '.update',
-            static::$permissionPrefix . '.delete',
-            static::$permissionPrefix . '.restore',
-            static::$permissionPrefix . '.forceDelete',
-            static::$permissionPrefix . '.deleteAny',
-            static::$permissionPrefix . '.restoreAny',
-            static::$permissionPrefix . '.forceDeleteAny',
+            $prefix . 'viewAny',
+            $prefix . 'view',
+            $prefix . 'create',
+            $prefix . 'update',
+            $prefix . 'delete',
+            $prefix . 'restore',
+            $prefix . 'forceDelete',
+            $prefix . 'deleteAny',
+            $prefix . 'restoreAny',
+            $prefix . 'forceDeleteAny',
         ];
     }
 
@@ -64,7 +76,7 @@ abstract class FilamentPolicy
     {
         $this->checkAuthenticatable($user);
 
-        $permission = static::$permissionPrefix . '.' . $permission;
+        $permission = static::getPermissionPrefix() . '.' . $permission;
         $hasStarPermission = $user->getAllPermissions()->contains("*");
         $hasDirectPermission = $user->hasPermissionTo($permission, $guard);
 

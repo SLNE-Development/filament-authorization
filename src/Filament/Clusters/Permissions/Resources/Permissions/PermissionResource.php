@@ -20,8 +20,12 @@ use UnitEnum;
 
 class PermissionResource extends Resource
 {
-    protected static ?string $model = Permission::class;
     protected static ?string $cluster = PermissionCluster::class;
+
+    public static function getModel(): string
+    {
+        return config("permission.models.permission", Permission::class);
+    }
 
     public static function getLabel(): ?string
     {
@@ -35,7 +39,7 @@ class PermissionResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return Permission::query()->count();
+        return static::getModel()->query()->count();
     }
 
     public static function getNavigationGroup(): string|UnitEnum|null
