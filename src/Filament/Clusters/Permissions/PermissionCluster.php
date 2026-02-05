@@ -9,6 +9,11 @@ use UnitEnum;
 
 class PermissionCluster extends Cluster
 {
+    public static function getCluster(): ?string
+    {
+        return FilamentAuthorizationPlugin::get()->getClusterName();
+    }
+
     public static function getSubNavigationPosition(): SubNavigationPosition
     {
         return FilamentAuthorizationPlugin::get()->getSubNavigationPosition();

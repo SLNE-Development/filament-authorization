@@ -18,6 +18,7 @@ class FilamentAuthorizationPlugin implements Plugin
     private string|UnitEnum|null $navigationGroup = null;
     private ?int $navigationSortIndex = null;
     private string $navigationLabel = "Authorization";
+    private string $clusterName = "Authorization";
     private SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
 
     private ?string $userModel = null;
@@ -192,6 +193,17 @@ class FilamentAuthorizationPlugin implements Plugin
     public function withSubNavigationPosition(SubNavigationPosition $subNavigationPosition): static
     {
         $this->subNavigationPosition = $subNavigationPosition;
+        return $this;
+    }
+
+    public function getClusterName(): string
+    {
+        return $this->clusterName;
+    }
+
+    public function withClusterName(string $clusterName): static
+    {
+        $this->clusterName = $clusterName;
         return $this;
     }
 }
