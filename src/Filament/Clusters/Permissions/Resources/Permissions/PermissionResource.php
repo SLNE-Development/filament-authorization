@@ -2,10 +2,6 @@
 
 namespace SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Permissions;
 
-use App\Filament\Support\Clusters\Panel\PanelCluster;
-use App\Filament\Support\Navigation\SidebarNavigation;
-use App\Filament\Support\Resources\PanelResource;
-use App\Models\Team\Role\TeamPermission;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
