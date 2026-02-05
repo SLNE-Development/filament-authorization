@@ -14,15 +14,15 @@ abstract class FilamentPolicy
     /**
      * @var class-string<T>
      */
-    protected static string $model;
-    protected static string $permissionPrefix;
+    public static string $model;
+    public static string $permissionPrefix;
 
-    protected static function getPermissionPrefix(): string
+    public static function getPermissionPrefix(): string
     {
         return static::$permissionPrefix;
     }
 
-    protected static function getModel(): string
+    public static function getModel(): string
     {
         return static::$model;
     }
