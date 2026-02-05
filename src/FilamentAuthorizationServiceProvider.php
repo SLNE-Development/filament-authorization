@@ -1,26 +1,24 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace SLNE\FilamentAuthorization;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
-use Livewire\Features\SupportTesting\Testable;
+use SLNE\FilamentAuthorization\Commands\CreateDefaultPermissionsCommand;
+use SLNE\FilamentAuthorization\Commands\FilamentAuthorizationCommand;
+use SLNE\FilamentAuthorization\Commands\PolicyPermissionCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
-use VendorName\Skeleton\Testing\TestsSkeleton;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class FilamentAuthorizationServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'skeleton';
-
-    public static string $viewNamespace = 'skeleton';
+    public static string $name = 'filament-authorization';
+    public static string $viewNamespace = 'filament-authorization';
 
     public function configurePackage(Package $package): void
     {
@@ -36,12 +34,12 @@ class SkeletonServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub(':vendor_slug/:package_slug');
+                    ->askToStarRepoOnGitHub('slne-development/filament-authorization');
             });
 
         $configFileName = $package->shortName();
 
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
+        if (file_exists($package->basePath("/../config/$configFileName.php"))) {
             $package->hasConfigFile();
         }
 
@@ -58,7 +56,9 @@ class SkeletonServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+    }
 
     public function packageBooted(): void
     {
@@ -80,18 +80,15 @@ class SkeletonServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/skeleton/{$file->getFilename()}"),
-                ], 'skeleton-stubs');
+                    $file->getRealPath() => base_path("stubs/filament-authorization/{$file->getFilename()}"),
+                ], 'filament-authorization-stubs');
             }
         }
-
-        // Testing
-        Testable::mixin(new TestsSkeleton);
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return ':vendor_slug/:package_slug';
+        return 'slne-development/filament-authorization';
     }
 
     /**
@@ -100,9 +97,9 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('skeleton', __DIR__ . '/../resources/dist/components/skeleton.js'),
-            Css::make('skeleton-styles', __DIR__ . '/../resources/dist/skeleton.css'),
-            Js::make('skeleton-scripts', __DIR__ . '/../resources/dist/skeleton.js'),
+            // AlpineComponent::make('filament-authorization', __DIR__ . '/../resources/dist/components/filament-authorization.js'),
+            Css::make('filament-authorization-styles', __DIR__ . '/../resources/dist/filament-authorization.css'),
+            Js::make('filament-authorization-scripts', __DIR__ . '/../resources/dist/filament-authorization.js'),
         ];
     }
 
@@ -112,7 +109,8 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            SkeletonCommand::class,
+            CreateDefaultPermissionsCommand::class,
+            PolicyPermissionCommand::class
         ];
     }
 
@@ -146,7 +144,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_skeleton_table',
+            'create_permission_tables',
         ];
     }
 }
