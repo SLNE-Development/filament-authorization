@@ -40,7 +40,7 @@ class FilamentAuthServiceProvider extends ServiceProvider
             }
 
             $relativeClass = str_replace([app_path() . DIRECTORY_SEPARATOR, '.php'], "", $file->getPathname());
-            $class = str_replace(DIRECTORY_SEPARATOR, "\\", $relativeClass);
+            $class = "App\\" . str_replace(DIRECTORY_SEPARATOR, "\\", $relativeClass);
 
             Log::info("#########");
             Log::info("Checking class: " . $class);
