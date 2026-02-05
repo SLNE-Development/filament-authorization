@@ -159,11 +159,11 @@ class FilamentAuthorizationPlugin implements Plugin
 
     public function getPermissionModel(): string
     {
-        return config("filament-authorization.permission_model");
+        return config("permission.models.permission");
     }
 
     public function getRoleModel(): string
     {
-        return config("filament-authorization.role_model");
+        return config("permission.models.role");
     }
 }
