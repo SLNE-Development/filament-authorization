@@ -5,6 +5,7 @@ namespace SLNE\FilamentAuthorization;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 use SLNE\FilamentAuthorization\Http\Middleware\FilamentAuthenticate;
 use SLNE\FilamentAuthorization\Http\Middleware\FilamentAuthenticateSession;
 use UnitEnum;
@@ -12,8 +13,11 @@ use UnitEnum;
 class FilamentAuthorizationPlugin implements Plugin
 {
     private ?string $authHome = "";
+
     private string|UnitEnum|null $navigationGroup = null;
     private ?int $navigationSortIndex = null;
+    private ?string $navigationLabel = "Authorization";
+
     private ?string $userModel = null;
 
     private string $permissionPermissionPrefix = "permission";
@@ -64,7 +68,7 @@ class FilamentAuthorizationPlugin implements Plugin
     public function withUserModel(string $userModel): static
     {
         if (!is_subclass_of($userModel, Model::class)) {
-            throw new \InvalidArgumentException("The user model must be a subclass of Illuminate\\Database\\Eloquent\\Model");
+            throw new InvalidArgumentException("The user model must be a subclass of Illuminate\\Database\\Eloquent\\Model");
         }
 
         $this->userModel = $userModel;
@@ -165,5 +169,16 @@ class FilamentAuthorizationPlugin implements Plugin
     public function getRoleModel(): string
     {
         return config("permission.models.role");
+    }
+
+    public function getNavigationLabel(): ?string
+    {
+        return $this->navigationLabel;
+    }
+
+    public function withNavigationLabel(string $navigationLabel): static
+    {
+        $this->navigationLabel = $navigationLabel;
+        return $this;
     }
 }

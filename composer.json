@@ -1,7 +1,7 @@
 {
     "name": "slne-development/filament-authorization",
     "description": "Filament Authorization using policies and spatie-permissions",
-    "version": "1.0.26",
+    "version": "1.0.27",
     "type": "library",
     "keywords": [
         "SLNE-Development",
