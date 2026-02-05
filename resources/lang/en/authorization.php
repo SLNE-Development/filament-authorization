@@ -53,7 +53,7 @@ return [
         ]
     ],
     "actions" => [
-        "import_permission" => [
+        "import_permissions" => [
             "label" => "Import Permissions",
             "modal" => [
                 "heading" => "Import Permissions",
