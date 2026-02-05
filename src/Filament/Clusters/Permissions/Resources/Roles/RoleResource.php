@@ -40,7 +40,7 @@ class RoleResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()->query()->count();
+        return (static::getModel())->count();
     }
 
     public static function getNavigationGroup(): string|UnitEnum|null
