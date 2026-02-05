@@ -2,16 +2,16 @@
 return [
     "resources" => [
         "permission" => [
-            "label" => "Permission",
-            "plural_label" => "Permissions",
-            "title" => "Permissions",
+            "label" => "Berechtigung",
+            "plural_label" => "Berechtigungen",
+            "title" => "Berechtigungen",
             "form" => [
                 "schema" => [
                     "name" => [
                         "label" => "Name"
                     ],
                     "guard_name" => [
-                        "label" => "Guard Name"
+                        "label" => "Guard-Name"
                     ],
                 ]
             ],
@@ -21,18 +21,18 @@ return [
                         "label" => "Name"
                     ],
                     "guard_name" => [
-                        "label" => "Guard Name"
+                        "label" => "Guard-Name"
                     ],
                     "roles_count" => [
-                        "label" => "Used By"
+                        "label" => "Verwendet von"
                     ]
                 ]
             ]
         ],
         "role" => [
-            "label" => "Role",
-            "plural_label" => "Roles",
-            "title" => "Roles",
+            "label" => "Rolle",
+            "plural_label" => "Rollen",
+            "title" => "Rollen",
             "form" => [
                 "schema" => [
                     "name" => [
@@ -46,7 +46,7 @@ return [
                         "label" => "Name"
                     ],
                     "guard_name" => [
-                        "label" => "Guard Name"
+                        "label" => "Guard-Name"
                     ]
                 ]
             ]
@@ -54,36 +54,36 @@ return [
     ],
     "actions" => [
         "import_permission" => [
-            "label" => "Import Permissions",
+            "label" => "Berechtigungen importieren",
             "modal" => [
-                "heading" => "Import Permissions",
-                "description" => "Import all permissions of the given role into the current role"
+                "heading" => "Berechtigungen importieren",
+                "description" => "Importiere alle Berechtigungen der angegebenen Rolle in die aktuelle Rolle"
             ],
             "schema" => [
                 "role_id" => [
-                    "label" => "Role",
+                    "label" => "Rolle",
                 ],
                 "delete_existing" => [
-                    "label" => "Delete existing permissions",
-                    "helper_text" => "All existing permissions will be deleted before the new ones are added."
+                    "label" => "Bestehende Berechtigungen löschen",
+                    "helper_text" => "Alle bestehenden Berechtigungen werden gelöscht, bevor die neuen hinzugefügt werden."
                 ]
             ],
             "action" => [
                 "notifications" => [
                     "role_missing" => [
-                        "title" => "Role not found",
-                        "description" => "The given role could not be found."
+                        "title" => "Rolle nicht gefunden",
+                        "description" => "Die angegebene Rolle konnte nicht gefunden werden."
                     ],
                     "existing_permissions_deleted" => [
-                        "title" => "Existing permissions deleted",
-                        "description" => "All existing permissions have been deleted successfully."
+                        "title" => "Bestehende Berechtigungen gelöscht",
+                        "description" => "Alle bestehenden Berechtigungen wurden erfolgreich gelöscht."
                     ],
                     "permissions_imported" => [
-                        "title" => "Permissions imported",
-                        "description" => "All permissions have been imported successfully."
+                        "title" => "Berechtigungen importiert",
+                        "description" => "Alle Berechtigungen wurden erfolgreich importiert."
                     ]
                 ]
             ]
         ]
-    ],
+    ]
 ];
