@@ -40,7 +40,7 @@ abstract class FilamentPolicy
 
     public function getAllPermissions(): array
     {
-        $prefix = static::$permissionPrefix . '.';
+        $prefix = static::getPermissionPrefix() . '.';
 
         return [
             $prefix . 'viewAny',
