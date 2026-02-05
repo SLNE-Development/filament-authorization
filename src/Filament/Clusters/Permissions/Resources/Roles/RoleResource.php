@@ -11,7 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\PermissionCluster;
+use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\AuthorizationCluster;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\Pages\ListRoles;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\Pages\ViewRole;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\RelationManagers\PermissionsRelationManager;
@@ -22,7 +22,7 @@ use UnitEnum;
 
 class RoleResource extends Resource
 {
-    protected static ?string $cluster = PermissionCluster::class;
+    protected static ?string $cluster = AuthorizationCluster::class;
 
     public static function getModel(): string
     {
