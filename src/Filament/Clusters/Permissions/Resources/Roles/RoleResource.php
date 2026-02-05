@@ -15,6 +15,7 @@ use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\PermissionCluster;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\Pages\ListRoles;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\Pages\ViewRole;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\RelationManagers\PermissionsRelationManager;
+use SLNE\FilamentAuthorization\FilamentAuthorization;
 use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 use Spatie\Permission\Models\Role;
 use UnitEnum;
@@ -30,12 +31,12 @@ class RoleResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return __("authorization.resources.role.label");
+        return FilamentAuthorization::translate("authorization.resources.role.label");
     }
 
     public static function getPluralLabel(): ?string
     {
-        return __("authorization.resources.role.plural_label");
+        return FilamentAuthorization::translate("authorization.resources.role.plural_label");
     }
 
     public static function getNavigationBadge(): ?string
@@ -56,7 +57,7 @@ class RoleResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(__("authorization.resources.role.form.schema.name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.form.schema.name.label"))
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true)
@@ -69,11 +70,11 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__("authorization.resources.role.table.columns.name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.table.columns.name.label"))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('guard_name')
-                    ->label(__("authorization.resources.role.table.columns.guard_name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.table.columns.guard_name.label"))
                     ->searchable()
                     ->sortable()
             ])

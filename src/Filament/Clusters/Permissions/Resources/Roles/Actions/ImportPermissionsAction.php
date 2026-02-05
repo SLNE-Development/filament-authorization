@@ -7,6 +7,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Support\Icons\Heroicon;
+use SLNE\FilamentAuthorization\FilamentAuthorization;
 use Spatie\Permission\Models\Role;
 
 class ImportPermissionsAction extends Action
@@ -29,32 +30,32 @@ class ImportPermissionsAction extends Action
     {
         parent::setUp();
 
-        $this->label(__("authorization.actions.import_permissions.label"));
+        $this->label(FilamentAuthorization::translate("authorization.actions.import_permissions.label"));
         $this->icon(Heroicon::Document);
         $this->color("gray");
         $this->authorize("update");
 
-        $this->modalHeading(__("authorization.actions.import_permissions.modal.heading"));
-        $this->modalDescription(__("authorization.actions.import_permissions.modal.description"));
+        $this->modalHeading(FilamentAuthorization::translate("authorization.actions.import_permissions.modal.heading"));
+        $this->modalDescription(FilamentAuthorization::translate("authorization.actions.import_permissions.modal.description"));
 
         $this->requiresConfirmation();
 
         $this->schema([
             Select::make("role_id")
-                ->label(__("authorization.actions.import_permissions.schema.role_id.label"))
+                ->label(FilamentAuthorization::translate("authorization.actions.import_permissions.schema.role_id.label"))
                 ->preload()
                 ->searchable()
                 ->options(Role::query()->distinct()->pluck("name", "id")->toArray()),
             Checkbox::make("delete_existing")
-                ->label(__("authorization.actions.import_permissions.schema.delete_existing.label"))
-                ->helperText(__("authorization.actions.import_permissions.schema.delete_existing.helper_text")),
+                ->label(FilamentAuthorization::translate("authorization.actions.import_permissions.schema.delete_existing.label"))
+                ->helperText(FilamentAuthorization::translate("authorization.actions.import_permissions.schema.delete_existing.helper_text")),
         ]);
 
         $this->action(function (array $data) {
             if (is_null($this->role)) {
                 Notification::make()
-                    ->title(__("authorization.actions.import_permissions.action.notifications.role_missing.title"))
-                    ->body(__("authorization.actions.import_permissions.action.notifications.role_missing.description"))
+                    ->title(FilamentAuthorization::translate("authorization.actions.import_permissions.action.notifications.role_missing.title"))
+                    ->body(FilamentAuthorization::translate("authorization.actions.import_permissions.action.notifications.role_missing.description"))
                     ->danger()
                     ->send();
 
@@ -70,8 +71,8 @@ class ImportPermissionsAction extends Action
                 $this->role->permissions()->detach();
 
                 Notification::make()
-                    ->title(__("authorization.actions.import_permissions.action.notifications.existing_permissions_deleted.title"))
-                    ->body(__("authorization.actions.import_permissions.action.notifications.existing_permissions_deleted.description"))
+                    ->title(FilamentAuthorization::translate("authorization.actions.import_permissions.action.notifications.existing_permissions_deleted.title"))
+                    ->body(FilamentAuthorization::translate("authorization.actions.import_permissions.action.notifications.existing_permissions_deleted.description"))
                     ->success()
                     ->send();
             }
@@ -79,8 +80,8 @@ class ImportPermissionsAction extends Action
             $this->role->permissions()->syncWithoutDetaching($importedRole->permissions);
 
             Notification::make()
-                ->title(__("authorization.actions.import_permissions.action.notifications.permissions_imported.title"))
-                ->body(__("authorization.actions.import_permissions.action.notifications.permissions_imported.description"))
+                ->title(FilamentAuthorization::translate("authorization.actions.import_permissions.action.notifications.permissions_imported.title"))
+                ->body(FilamentAuthorization::translate("authorization.actions.import_permissions.action.notifications.permissions_imported.description"))
                 ->success()
                 ->send();
 

@@ -15,6 +15,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use SLNE\FilamentAuthorization\FilamentAuthorization;
 use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 
 class RolesRelationManager extends RelationManager
@@ -26,7 +27,7 @@ class RolesRelationManager extends RelationManager
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return __("authorization.resources.role.title");
+        return FilamentAuthorization::translate("authorization.resources.role.title");
     }
 
     /**
@@ -34,7 +35,7 @@ class RolesRelationManager extends RelationManager
      */
     public static function getLabel(): ?string
     {
-        return __("authorization.resources.role.label");
+        return FilamentAuthorization::translate("authorization.resources.role.label");
     }
 
     /**
@@ -42,7 +43,7 @@ class RolesRelationManager extends RelationManager
      */
     public static function getPluralLabel(): ?string
     {
-        return __("authorization.resources.role.plural_label");
+        return FilamentAuthorization::translate("authorization.resources.role.plural_label");
     }
 
     public function form(Schema $schema): Schema
@@ -50,13 +51,13 @@ class RolesRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(__("authorization.resources.role.form.schema.name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.form.schema.name.label"))
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true)
                     ->columnSpanFull(),
                 TextInput::make('guard_name')
-                    ->label(__("authorization.resources.role.form.schema.guard_name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.form.schema.guard_name.label"))
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255)
@@ -71,11 +72,11 @@ class RolesRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
-                    ->label(__("authorization.resources.role.table.columns.name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.table.columns.name.label"))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('guard_name')
-                    ->label(__("authorization.resources.role.table.columns.guard_name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.role.table.columns.guard_name.label"))
                     ->searchable()
                     ->sortable(),
             ])

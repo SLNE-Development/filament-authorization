@@ -14,6 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use SLNE\FilamentAuthorization\Filament\Clusters\Permissions\Resources\Roles\Actions\ImportPermissionsAction;
+use SLNE\FilamentAuthorization\FilamentAuthorization;
 use SLNE\FilamentAuthorization\FilamentAuthorizationPlugin;
 
 class PermissionsRelationManager extends RelationManager
@@ -25,7 +26,7 @@ class PermissionsRelationManager extends RelationManager
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return __("authorization.resources.permission.title");
+        return FilamentAuthorization::translate("authorization.resources.permission.title");
     }
 
     /**
@@ -33,7 +34,7 @@ class PermissionsRelationManager extends RelationManager
      */
     public static function getLabel(): ?string
     {
-        return __("authorization.resources.permission.label");
+        return FilamentAuthorization::translate("authorization.resources.permission.label");
     }
 
     /**
@@ -41,7 +42,7 @@ class PermissionsRelationManager extends RelationManager
      */
     public static function getPluralLabel(): ?string
     {
-        return __("authorization.resources.permission.plural_label");
+        return FilamentAuthorization::translate("authorization.resources.permission.plural_label");
     }
 
     public function form(Schema $schema): Schema
@@ -49,13 +50,13 @@ class PermissionsRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(__("authorization.resources.permission.form.schema.name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.permission.form.schema.name.label"))
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull()
                     ->unique(ignoreRecord: true),
                 TextInput::make("guard_name")
-                    ->label(__("authorization.resources.permission.form.schema.guard_name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.permission.form.schema.guard_name.label"))
                     ->nullable()
                     ->default('web')
                     ->maxLength(255)
@@ -69,11 +70,11 @@ class PermissionsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
-                    ->label(__("authorization.resources.permission.table.columns.name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.permission.table.columns.name.label"))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('guard_name')
-                    ->label(__("authorization.resources.permission.table.columns.guard_name.label"))
+                    ->label(FilamentAuthorization::translate("authorization.resources.permission.table.columns.guard_name.label"))
                     ->searchable()
                     ->sortable(),
             ])
