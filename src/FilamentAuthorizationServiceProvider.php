@@ -30,6 +30,19 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
                 $command
                     ->publishConfigFile()
                     ->publishMigrations()
+                    ->startWith(function (InstallCommand $command) {
+                        $command->comment("Please make sure your user model uses the trait HasRoles by spatie permissions and also implements Authenticatable.");
+                        if (!$command->confirm("Did you update your user model accordingly?", true)) {
+                            $command->info("Aborting installation. Please update your user model and run the install command again.");
+                            exit;
+                        }
+
+                        $command->comment("Please make sure to remove the default Authorization middlewares from middleware and authMiddleware in your panel provider.");
+                        if (!$command->confirm("Did you update your panel provider accordingly?", true)) {
+                            $command->info("Aborting installation. Please update your panel provider and run the install command again.");
+                            exit;
+                        }
+                    })
                     ->askToStarRepoOnGitHub('slne-development/filament-authorization');
             });
 
