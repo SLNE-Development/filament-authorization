@@ -30,17 +30,10 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
                 $command
                     ->publishConfigFile()
                     ->publishMigrations()
-                    ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('slne-development/filament-authorization');
             });
 
-        $configFileName = $package->shortName();
-
         $package->hasConfigFile("permission.php");
-
-        if (file_exists($package->basePath("/../config/$configFileName.php"))) {
-            $package->hasConfigFile();
-        }
 
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
