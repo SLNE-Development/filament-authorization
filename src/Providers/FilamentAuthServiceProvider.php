@@ -44,6 +44,8 @@ class FilamentAuthServiceProvider extends ServiceProvider
 
             Log::info("#########");
             Log::info("Checking class: " . $class);
+            Log::info("Class Exists: " . class_exists($class));
+            Log::info("Is Subclass of FilamentPolicy: " . is_subclass_of($class, FilamentPolicy::class));
 
             if (class_exists($class) && is_subclass_of($class, FilamentPolicy::class)) {
                 Log::info("Found policy: " . $class);
