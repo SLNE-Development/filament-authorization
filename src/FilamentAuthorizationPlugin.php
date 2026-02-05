@@ -73,7 +73,7 @@ class FilamentAuthorizationPlugin implements Plugin
 
         $panel->discoverClusters(
             in: __DIR__ . "/Filament/Clusters",
-            for: "SLNE\\FilamentAuthorization\\Filament\\Clusters\\",
+            for: "SLNE\\FilamentAuthorization\\Filament\\Clusters",
         );
     }
 
