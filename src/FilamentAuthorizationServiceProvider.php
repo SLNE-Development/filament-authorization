@@ -3,13 +3,10 @@
 namespace SLNE\FilamentAuthorization;
 
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use SLNE\FilamentAuthorization\Commands\CreateDefaultPermissionsCommand;
-use SLNE\FilamentAuthorization\Commands\FilamentAuthorizationCommand;
 use SLNE\FilamentAuthorization\Commands\PolicyPermissionCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -38,6 +35,8 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
             });
 
         $configFileName = $package->shortName();
+
+        $package->hasConfigFile("authorization.php");
 
         if (file_exists($package->basePath("/../config/$configFileName.php"))) {
             $package->hasConfigFile();
@@ -96,11 +95,7 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
      */
     protected function getAssets(): array
     {
-        return [
-            // AlpineComponent::make('filament-authorization', __DIR__ . '/../resources/dist/components/filament-authorization.js'),
-            Css::make('filament-authorization-styles', __DIR__ . '/../resources/dist/filament-authorization.css'),
-            Js::make('filament-authorization-scripts', __DIR__ . '/../resources/dist/filament-authorization.js'),
-        ];
+        return [];
     }
 
     /**
