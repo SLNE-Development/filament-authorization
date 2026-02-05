@@ -36,7 +36,7 @@ class FilamentAuthorizationServiceProvider extends PackageServiceProvider
 
         $configFileName = $package->shortName();
 
-        $package->hasConfigFile("authorization.php");
+        $package->hasConfigFile("permission.php");
 
         if (file_exists($package->basePath("/../config/$configFileName.php"))) {
             $package->hasConfigFile();
