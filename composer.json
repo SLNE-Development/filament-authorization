@@ -2,6 +2,7 @@
     "name": "slne-development/filament-authorization",
     "description": "Filament Authorization using policies and spatie-permissions",
     "version": "1.0.0",
+    "type": "library",
     "keywords": [
         "SLNE-Development",
         "laravel",
@@ -51,6 +52,6 @@
             }
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
