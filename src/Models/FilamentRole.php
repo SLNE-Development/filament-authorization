@@ -2,6 +2,7 @@
 
 namespace SLNE\FilamentAuthorization\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Models\Role;
 
 class FilamentRole extends Role
@@ -19,5 +20,9 @@ class FilamentRole extends Role
     public function getRouteKeyName(): string
     {
         return "name";
+    }
+
+    public function filamentRoles(): BelongsToMany {
+        return $this->permissions();
     }
 }
