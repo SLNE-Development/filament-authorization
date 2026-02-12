@@ -60,7 +60,7 @@ class PolicyPermissionCommand extends Command
      */
     public function handle(): int
     {
-        $name = $this->argument('name');
+        $name = $this->argument('policy');
         $guard = $this->option('guard');
 
         if (empty($name)) {
