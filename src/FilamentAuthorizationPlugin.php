@@ -36,11 +36,11 @@ class FilamentAuthorizationPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->middleware([
-            FilamentAuthenticate::class
+            FilamentAuthenticateSession::class
         ]);
 
         $panel->authMiddleware([
-            FilamentAuthenticateSession::class
+            FilamentAuthenticate::class
         ]);
 
         $panel->strictAuthorization();
